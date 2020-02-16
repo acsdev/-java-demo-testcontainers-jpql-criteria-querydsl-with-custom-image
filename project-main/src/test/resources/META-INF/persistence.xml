@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="PersistenceUnitTEST" transaction-type="RESOURCE_LOCAL">
+
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <class>eti.query.demonstration.converters.LocalDateTimeAttributeConverter</class>
+
+        <class>eti.query.demonstration.country.entities.CountryEntity</class>
+        <class>eti.query.demonstration.department.entities.DepartmentEntity</class>
+        <class>eti.query.demonstration.employee.entities.EmployeeEntity</class>
+        <class>eti.query.demonstration.job.entities.JobEntity</class>
+        <class>eti.query.demonstration.job.entities.JobHistoryEntity</class>
+        <class>eti.query.demonstration.location.entities.LocationEntity</class>
+        <class>eti.query.demonstration.region.entities.RegionEntity</class>
+
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+
+        <!-- cache needs to be deactivated for multiple pods -->
+        <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/Caching -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url"    value="jdbc:h2:./target/data/testdb;MVCC=true;"/>
+            <property name="javax.persistence.jdbc.user"   value="hr"/>
+
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.create-source"   value="script-then-metadata"/>
+
+            <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/sql/prepare.sql"/>
+            <property name="javax.persistence.sql-load-script-source" value="META-INF/sql/load.sql"/>
+
+            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.H2Platform"/>
+            <!--property name="eclipselink.logging.level" value="FINE"/-->
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>
